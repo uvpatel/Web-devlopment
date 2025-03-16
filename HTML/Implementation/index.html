@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipboard Code Snippet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .code-container {
+            position: relative;
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: left;
+            max-width: 600px;
+            overflow: auto;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #008cba;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .copy-btn:hover {
+            background: #005f73;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Clipboard Code Snippet</h2>
+
+    <div class="code-container">
+        <button class="copy-btn" onclick="copyCode()">Copy</button>
+        <pre><code id="codeSnippet">
+function greet() {
+    console.log("Hello, World!");
+}
+        </code></pre>
+
+    </div>
+    
+
+    <script>
+        function copyCode() {
+            let code = document.getElementById("codeSnippet").innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Code copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+
+</body>
+</html>
