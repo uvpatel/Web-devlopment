@@ -1,0 +1,10 @@
+project:
+  name: Web Development Learning Journey
+  author: uvpatel
+  technologies:
+    - HTML5
+    - CSS3
+    - JavaScript (Coming Soon)
+    - Python + Web (Planned)
+  status: Ongoing
+  license: MIT
