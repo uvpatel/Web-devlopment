@@ -47,3 +47,10 @@ Each section will have notes, examples, and projects as part of my **self-learni
 ---
 
 ## 📂 Folder Structure
+
+This repository is organized for easy navigation and systematic learning:
+
+
+
+
+📂 **Project Metadata:** Check `project.yml` for project configuration.
