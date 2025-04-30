@@ -1,0 +1,1 @@
+alert("Hello This is the website made with HTML and CSS");
