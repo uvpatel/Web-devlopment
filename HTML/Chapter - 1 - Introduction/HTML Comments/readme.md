@@ -28,8 +28,7 @@ As you can see in the video below, the text inside the comment is not rendered.
 Multi-line comments span across multiple lines, making them ideal for detailed explanations or temporarily disabling blocks of code.
 
 Example:
-```
-html
+```html
 <!-- 
   This is a multi-line comment.
   It spans multiple lines.

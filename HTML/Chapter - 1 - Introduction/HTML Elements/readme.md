@@ -24,7 +24,9 @@ The enclosing element is often referred to as the "parent," while the enclosed e
 For example:
 
 ` <h1>`     `<b>` This is our first heading    `</b>` `</h1>` 
-```html <h1><b>This is our first heading</b></h1>``` 
+```html 
+<h1><b>This is our first heading</b></h1>
+``` 
 In this example, the `<b>`  element (child) is nested inside the ` <h1>`  element (parent).
 
 
@@ -35,7 +37,9 @@ An empty HTML element is one that does not have a closing tag or content. These 
 
 For example:
 
-```html <br />``` 
+```html
+ <br />
+ ``` 
 
 This is a **break tag**, which has no content and no closing tag. It's used to insert a line break within text or other inline elements. The ` <hr/> ` tag, used for horizontal rules, is another example of an empty or void element.
 

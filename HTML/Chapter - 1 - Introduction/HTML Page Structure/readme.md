@@ -41,8 +41,8 @@ Almost every website uses this structure. The main content goes inside the body 
 The `<!DOCTYPE html>` declaration informs the web browser about the HTML version being used. The latest version is HTML5. But if this changes in the future (maybe 10 years down the line), the doctype declaration will be helpful!
 
 ## HTML Root Element
-```
-html <html>
+```html 
+<html>
 ```
 
 The `<html>`tag is the root element that encapsulates all the content on the page.
@@ -68,7 +68,9 @@ The `</head>` tag marks the end of the `<head>` section.
 The <title> tag sets the title of the web page, which is displayed in the browser's title bar or tab.
 
 #### Body Tag
-```html <body>```
+```html
+ <body>
+```
 
 The `<body>` tag contains the visible content of the web page. This is where text, images, and other elements go.
 
