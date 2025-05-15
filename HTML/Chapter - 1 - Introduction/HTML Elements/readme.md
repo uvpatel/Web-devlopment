@@ -8,7 +8,9 @@ An HTML element is a complete set that consists of a start tag (or opening tag),
 
 For example:
 
-```html <h1>This is our first heading</h1>``` 
+```html 
+<h1>This is our first heading</h1>
+``` 
 
 In this example, `<h1>` is the start tag, "This is our first heading" is the content, and `</h1>` is the end tag. Together, they form an HTML element.
 

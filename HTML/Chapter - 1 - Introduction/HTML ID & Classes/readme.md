@@ -3,18 +3,21 @@ HTML offers multiple ways to select and style elements. Two of the most commonly
 
 ## What is an ID?
 An ID is an attribute, a unique identifier assigned to only one HTML element within a page. It is often used for unique styling and JavaScript manipulations.
+
 ```html
 <div id="myUniqueID">This is a div with an ID.</div>
 ```
 
 ## What are Classes?
 The class attribute lets you give the same name to multiple HTML elements. That way, you can easily change their look or behavior all at once. Classes are not unique and can be assigned to multiple elements. They are generally used for applying the same styles or behaviors to a group of elements.
-
 ```html
 <div class="myClass">This is a div with a class.</div>
 <p class="myClass">This is a paragraph with the same class.</p>
 ```
-### The Style Tag
+
+
+
+## The Style Tag
 The style tag in HTML is used to include embedded CSS (Cascading Style Sheets) within an HTML document. It is commonly placed within the <head> section of the HTML file, although it can technically be used in the <body> as well. The style tag allows you to define the look and feel of various HTML elements on the page, including their colors, sizes, margins, and other visual styles.
 
 Here's a simple example:
@@ -43,7 +46,8 @@ Here's a simple example:
 In this example, we have targeted the second paragraph by its class name in CSS. The style tag is used to add CSS right into HTML. We will learn about CSS and selectors later in the CSS tutorial.
 
 ### Using IDs and Classes in CSS
-In CSS, elements with IDs are selected using a hash (#) symbol before the ID, and elements with classes are selected using a dot (.) before the class name.
+In CSS, elements with IDs are selected using a hash `(#)` symbol before the ID, and elements with classes are selected using a dot `(.)` before the class name.
+
 ```css
 /* CSS for ID */
 #myUniqueID {
@@ -63,3 +67,4 @@ In CSS, elements with IDs are selected using a hash (#) symbol before the ID, an
 
 ### Conclusion
 Understanding the difference between IDs and Classes is crucial for effective web development. While IDs are for unique elements, classes are for grouping elements.
+

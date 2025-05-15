@@ -15,7 +15,8 @@ HTML primarily supports two types of comments:
 Single-line comments are contained within one line. They are useful for short annotations.
 
 Example:
-```html
+```
+html
 <!-- This is a single-line comment -->
 ```
 As you can see in the video below, the text inside the comment is not rendered.
@@ -27,7 +28,8 @@ As you can see in the video below, the text inside the comment is not rendered.
 Multi-line comments span across multiple lines, making them ideal for detailed explanations or temporarily disabling blocks of code.
 
 Example:
-```html
+```
+html
 <!-- 
   This is a multi-line comment.
   It spans multiple lines.

@@ -34,16 +34,22 @@ Almost every website uses this structure. The main content goes inside the body 
 
 
 ## DOCTYPE Declaration
-```html <!DOCTYPE html> ```
+```html 
+<!DOCTYPE html> 
+```
 
 The `<!DOCTYPE html>` declaration informs the web browser about the HTML version being used. The latest version is HTML5. But if this changes in the future (maybe 10 years down the line), the doctype declaration will be helpful!
 
 ## HTML Root Element
-```html <html>```
+```
+html <html>
+```
 
 The `<html>`tag is the root element that encapsulates all the content on the page.
 
-```html </html>```
+```html 
+</html>
+```
 
 The `</html>` tag marks the end of the `<html>` section.
 
