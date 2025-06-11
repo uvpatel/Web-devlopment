@@ -1,0 +1,9 @@
+.done {
+  color: darkseagreen;
+  text-decoration: line-through solid black 2px;
+}
+
+body{
+    background-color: #212121;
+    color: #fff;
+}
