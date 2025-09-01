@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Global styles */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Body styling */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(to bottom right, #f3f4f6, #e5e7eb); /* soft gray gradient */
+  color: #1f2937; /* gray-800 */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827; /* gray-900 */
+}
+
+/* Links */
+a {
+  font-weight: 500;
+  color: #3b82f6; /* blue-500 */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: #2563eb; /* blue-600 */
+}
+
+/* Buttons */
+button {
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid #d1d5db; /* gray-300 */
+  padding: 0.6em 1.4em;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #f9fafb; /* gray-50 */
+  color: #111827;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+button:hover {
+  background-color: #f3f4f6; /* gray-100 */
+  border-color: #9ca3af; /* gray-400 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+button:focus,
+button:focus-visible {
+  outline: 3px solid #3b82f6; /* blue-500 focus ring */
+  outline-offset: 2px;
+}
+
+/* Light vs Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(to bottom right, #1f2937, #111827); /* gray-800 → gray-900 */
+    color: #f9fafb;
+  }
+  a {
+    color: #93c5fd; /* blue-300 */
+  }
+  a:hover {
+    color: #60a5fa; /* blue-400 */
+  }
+  button {
+    background-color: #1f2937; /* gray-800 */
+    color: #f9fafb;
+    border-color: #374151; /* gray-700 */
+  }
+  button:hover {
+    background-color: #374151; /* gray-700 */
+    border-color: #4b5563; /* gray-600 */
+  }
+}

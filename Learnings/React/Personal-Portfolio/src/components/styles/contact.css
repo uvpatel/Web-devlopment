@@ -1,0 +1,10 @@
+.contact-btn {
+  background-color: #8d6eff;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+.contact-btn:hover {
+  background-color: #6d4aff;
+}

@@ -1,0 +1,22 @@
+.header {
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  padding: 100px 20px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.header h2 {
+  font-size: 3rem;
+  color: #0d6efd;
+  margin-bottom: 20px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #495057;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}

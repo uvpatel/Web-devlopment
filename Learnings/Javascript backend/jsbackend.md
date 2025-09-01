@@ -1,0 +1,12 @@
+- Computer - server
+- express use for response
+- Express and mongoos
+- listen (postman) /: (home route),/login setup (express listen)
+- request and response.
+- get,delete,post,etc.
+- nodemon solve stop and run done refresh hotreloding.
+- some are important info so we use .env
+- crepto miner heroku and so many things.
+- digital ocean,railway,seenode,render,cyclic.
+- ssh setup
+- git 

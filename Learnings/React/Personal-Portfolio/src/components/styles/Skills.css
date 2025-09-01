@@ -1,0 +1,11 @@
+.skill-tag {
+  background-color: #8d6eff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+.skill-tag:hover {
+  background-color: #6d4aff;
+}

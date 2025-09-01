@@ -1,0 +1,17 @@
+.about-section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease forwards;
+}
+
+.highlight {
+  color: #8d6eff;
+  font-weight: bold;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
