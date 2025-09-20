@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#111827] text-white font-sans">
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center px-8 py-4 border-b border-gray-700">
+    <h1 class="text-2xl font-bold italic tracking-wide">&lt; Your Name /&gt;</h1>
+    <nav class="space-x-8 text-lg">
+      <a href="#skills" class="hover:text-blue-400">Skills</a>
+      <a href="#experience" class="hover:text-blue-400">Work Experiences</a>
+      <a href="#achievements" class="hover:text-blue-400">Achievements</a>
+      <a href="#contact" class="hover:text-blue-400">Contact Me</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col md:flex-row items-center justify-between px-8 md:px-20 py-16">
+    <!-- Left Content -->
+    <div class="md:w-1/2 space-y-6">
+      <h2 class="text-5xl font-extrabold leading-snug">
+        Hi all, I'm <span class="text-blue-400">Your Name 👋</span>
+      </h2>
+      <p class="text-lg text-gray-300">
+        A passionate <span class="text-blue-400">Full Stack Web Developer 🚀</span>
+        with experience in building Web and Mobile applications using
+        <span class="font-semibold">Flutter, Laravel, PHP, React.js</span> and other cool libraries & frameworks.
+      </p>
+      <!-- Social Links -->
+      <div class="flex space-x-4 pt-4">
+        <a href="https://github.com" target="_blank" class="p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition">
+          <i class="fab fa-github text-xl"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="p-3 rounded-full bg-blue-600 hover:bg-blue-500 transition">
+          <i class="fab fa-linkedin text-xl"></i>
+        </a>
+        <a href="mailto:example@email.com" class="p-3 rounded-full bg-red-600 hover:bg-red-500 transition">
+          <i class="fas fa-envelope text-xl"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Image -->
+    <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
+      <img src="your-photo.jpg" alt="Profile" class="rounded-lg shadow-lg w-80 md:w-96">
+    </div>
+  </section>
+  <!-- What I Do Section -->
+<section id="skills" class="bg-[#111827] text-white px-8 md:px-20 py-16">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+
+    <!-- Left Illustration -->
+    <div class="md:w-1/2 flex justify-center">
+      <img src="developer-illustration.svg" alt="Developer Illustration" class="w-80 md:w-[400px]">
+    </div>
+
+    <!-- Right Content -->
+    <div class="md:w-1/2 space-y-6">
+      <h2 class="text-4xl font-bold">What I do</h2>
+      <p class="text-gray-300 uppercase tracking-wide">
+        Crazy Full Stack Developer also App Developer who wants to explore every tech stack and framework
+      </p>
+
+      <!-- Tech Stack Icons -->
+      <div class="grid grid-cols-4 gap-6 text-center text-gray-400 text-sm">
+        <div><img src="icons/html5.svg" class="w-12 mx-auto"><p>html-5</p></div>
+        <div><img src="icons/css3.svg" class="w-12 mx-auto"><p>css3</p></div>
+        <div><img src="icons/bootstrap.svg" class="w-12 mx-auto"><p>bootstrap</p></div>
+        <div><img src="icons/js.svg" class="w-12 mx-auto"><p>JavaScript</p></div>
+        <div><img src="icons/react.svg" class="w-12 mx-auto"><p>reactjs</p></div>
+        <div><img src="icons/nodejs.svg" class="w-12 mx-auto"><p>nodejs</p></div>
+        <div><img src="icons/php.svg" class="w-12 mx-auto"><p>php</p></div>
+        <div><img src="icons/tailwind.svg" class="w-12 mx-auto"><p>tailwindcss</p></div>
+        <div><img src="icons/sql.svg" class="w-12 mx-auto"><p>sql</p></div>
+        <div><img src="icons/laravel.svg" class="w-12 mx-auto"><p>laravel</p></div>
+        <div><img src="icons/firebase.svg" class="w-12 mx-auto"><p>firebase</p></div>
+        <div><img src="icons/github.svg" class="w-12 mx-auto"><p>github</p></div>
+      </div>
+
+      <!-- Features -->
+      <div class="space-y-4 pt-4">
+        <p class="flex items-start gap-3 text-gray-200">
+          ⚡ Develop maintainable and scalable web applications using Laravel, PHP and other cool libraries
+        </p>
+        <p class="flex items-start gap-3 text-gray-200">
+          ⚡ Mobile application development using Flutter
+        </p>
+        <p class="flex items-start gap-3 text-gray-200">
+          ⚡ Integration of third party services such as Firebase / Google Services
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- FontAwesome Icons -->
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrier Compass</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Header / Navbar -->
+  <header class="bg-black text-white">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <h1 class="text-2xl md:text-3xl font-dancing text-red-500">🧭 Carrier Compass</h1>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex space-x-8 text-lg">
+        <li><a href="#" class="hover:text-red-500 transition">Home</a></li>
+        <li><a href="#" class="hover:text-red-500 transition">About</a></li>
+        <li><a href="#" class="hover:text-red-500 transition">Contact</a></li>
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden flex flex-col space-y-1 focus:outline-none">
+        <span class="w-6 h-0.5 bg-white"></span>
+        <span class="w-6 h-0.5 bg-white"></span>
+        <span class="w-6 h-0.5 bg-white"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="menu" class="hidden md:hidden bg-black text-white">
+      <ul class="flex flex-col space-y-4 px-6 py-4 text-lg">
+        <li><a href="#" class="hover:text-red-500 transition">Home</a></li>
+        <li><a href="#" class="hover:text-red-500 transition">About</a></li>
+        <li><a href="#" class="hover:text-red-500 transition">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center justify-center text-center py-20 px-6 bg-gradient-to-r from-black via-gray-900 to-black text-white">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Welcome to <span class="text-red-500">Carrier Compass</span></h2>
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl">
+      Navigate your career with confidence. Explore opportunities, learn new skills, and achieve your goals.
+    </p>
+    <div class="mt-6 flex space-x-4">
+      <a href="#" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition">Get Started</a>
+      <a href="#" class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-6 py-3 rounded-lg font-semibold transition">Learn More</a>
+    </div>
+  </section>
+
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+
+    menuBtn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+
+</body>
+</html>
