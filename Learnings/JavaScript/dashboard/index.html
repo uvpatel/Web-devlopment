@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Tourist Safety — Admin Dashboard</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Leaflet for map (optional) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2Y5b1g5s0bN6p2v8Q0VwusNfVZbqg1h2v+3E6kM=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#98a0b3; --accent:#06b6d4; --accent-2:#06d6a0;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071023 0%, #071026 60%); color:#e6eef8}
+
+    /* Layout */
+    .app{display:grid; grid-template-columns:260px 1fr; gap:20px; padding:20px; min-height:100vh}
+    header.topbar{grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 20px; background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px}
+
+    /* Sidebar */
+    .sidebar{background:var(--card); border-radius:var(--radius); padding:18px; height:calc(100vh - 92px); overflow:auto}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .brand .logo{width:44px; height:44px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); border-radius:10px; display:flex;align-items:center;justify-content:center}
+    nav ul{list-style:none;padding:12px 0 0;margin:0}
+    nav li{padding:10px;border-radius:8px; cursor:pointer; color:var(--muted)}
+    nav li.active{color:#fff; background:linear-gradient(90deg, rgba(6,182,212,0.07), rgba(6,214,160,0.02))}
+
+    /* Main */
+    main{padding:10px}
+    .row{display:flex; gap:16px; align-items:stretch}
+    .card{background:var(--glass); border-radius:12px; padding:14px; box-shadow: 0 6px 20px rgba(2,6,23,0.6); flex:1}
+    .card.small{flex:0.7}
+
+    .kpi{display:flex; gap:12px; align-items:center}
+    .kpi .num{font-size:20px; font-weight:700}
+    .kpi .label{color:var(--muted); font-size:13px}
+
+    /* Map */
+    #map{height:320px; border-radius:8px; overflow:hidden}
+
+    /* Charts */
+    .chart-wrap{height:220px}
+
+    /* Table */
+    table{width:100%; border-collapse:collapse; margin-top:8px}
+    th,td{padding:10px; text-align:left; font-size:13px}
+    thead th{color:var(--muted); font-weight:600; font-size:12px}
+    tbody tr{border-top:1px solid rgba(255,255,255,0.03)}
+
+    .tag{padding:6px 8px; border-radius:999px; font-size:12px; font-weight:600}
+    .tag.high{background:rgba(255,64,64,0.12); color:#ff7b7b}
+    .tag.medium{background:rgba(255,193,7,0.06); color:#ffd166}
+    .tag.low{background:rgba(6,214,160,0.06); color:#8ef3c8}
+
+    /* Modal */
+    .modal{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); visibility:hidden; opacity:0; transition:all .18s}
+    .modal.open{visibility:visible; opacity:1}
+    .modal .dialog{background:#071425; padding:18px; border-radius:12px; min-width:420px; color:#dfeefc}
+
+    /* controls */
+    .controls{display:flex; gap:8px; align-items:center}
+    input.search{padding:8px 10px; border-radius:8px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02); color:#e6eef8}
+    select.lang{padding:8px; border-radius:8px; background:transparent; color:#e6eef8}
+
+    /* Responsive */
+    @media (max-width:900px){.app{grid-template-columns:1fr; padding:12px}.sidebar{display:none}.row{flex-direction:column}.card.small{order:2}}
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div style="display:flex; align-items:center; gap:14px">
+        <div class="brand">
+          <div class="logo">ST</div>
+          <div>
+            <div style="font-size:15px">Smart Tourist Safety</div>
+            <div style="font-size:12px; color:var(--muted)">Monitoring & Incident Response</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input class="search" id="searchBox" placeholder="Search by Tourist ID / Name / Location">
+        <select class="lang" id="langSel">
+          <option>English</option>
+          <option>हिन्दी</option>
+          <option>বাংলা</option>
+          <option>मराठी</option>
+          <option>తెలుగు</option>
+        </select>
+        <button id="panicAll" style="background:#ff6b6b; border:none; padding:10px 12px; border-radius:10px; color:white; cursor:pointer">Trigger Panic Test</button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div style="display:flex; justify-content:space-between; align-items:center">
+        <div>
+          <div style="font-size:13px; color:var(--muted)">Logged in as</div>
+          <div style="font-weight:700">Tourism Admin</div>
+        </div>
+        <div style="text-align:right; color:var(--muted); font-size:12px">Zone: North-East</div>
+      </div>
+
+      <nav>
+        <ul>
+          <li class="active">Overview</li>
+          <li>Live Map</li>
+          <li>Alerts</li>
+          <li>Digital IDs</li>
+          <li>Reports</li>
+          <li>Settings</li>
+        </ul>
+      </nav>
+
+      <div style="margin-top:20px; font-size:13px; color:var(--muted)">
+        Quick Actions
+        <div style="display:flex; gap:8px; margin-top:8px">
+          <button onclick="openModal('create-id')" style="flex:1; padding:8px; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:#04202a; font-weight:700; cursor:pointer">Issue Digital ID</button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <!-- top KPIs -->
+      <div class="row" style="margin-bottom:14px">
+        <div class="card small">
+          <div class="kpi"><div style="font-size:12px; color:var(--muted)">Active Tourists</div><div style="margin-left:auto" class="num" id="kpiActive">—</div></div>
+          <div style="height:12px"></div>
+          <div class="kpi"><div style="font-size:12px; color:var(--muted)">Live Alerts</div><div style="margin-left:auto" class="num" id="kpiAlerts">—</div></div>
+          <div style="height:12px"></div>
+          <div class="kpi"><div style="font-size:12px; color:var(--muted)">High-Risk Zones</div><div style="margin-left:auto" class="num" id="kpiZones">—</div></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="font-weight:700">Tourist Clusters</div>
+            <div style="color:var(--muted); font-size:13px">Last 6 hrs</div>
+          </div>
+          <div class="chart-wrap"><canvas id="clustersChart"></canvas></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="font-weight:700">Risk Distribution</div>
+            <div style="color:var(--muted); font-size:13px">Auto-updated</div>
+          </div>
+          <div class="chart-wrap"><canvas id="riskChart"></canvas></div>
+        </div>
+      </div>
+
+      <!-- map + alerts -->
+      <div class="row">
+        <div class="card" style="flex:1.6">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
+            <div style="font-weight:700">Live Map</div>
+            <div style="color:var(--muted); font-size:13px">Real-time positions (mock)</div>
+          </div>
+          <div id="map"></div>
+        </div>
+
+        <div class="card" style="flex:1">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="font-weight:700">Recent Alerts</div>
+            <div style="color:var(--muted); font-size:13px">Auto-refresh</div>
+          </div>
+
+          <table id="alertsTable">
+            <thead><tr><th>Time</th><th>Tourist</th><th>Type</th><th>Risk</th><th>Action</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- table: digital ids -->
+      <div class="row" style="margin-top:16px">
+        <div class="card" style="flex:1.4">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="font-weight:700">Digital IDs</div>
+            <div style="color:var(--muted); font-size:13px">Issued (mock)</div>
+          </div>
+
+          <table id="idsTable">
+            <thead><tr><th>ID</th><th>Name</th><th>Visit</th><th>Score</th><th>Action</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="card" style="flex:0.8">
+          <div style="font-weight:700">Quick Insights</div>
+          <div style="margin-top:10px; color:var(--muted)">
+            <div>Total Tourist Days: <strong id="insTotalDays">—</strong></div>
+            <div>Avg Safety Score: <strong id="insAvgScore">—</strong></div>
+            <div style="margin-top:10px"><button onclick="exportReport()" style="padding:8px 10px; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:#04202a; font-weight:700; cursor:pointer">Export Snapshot</button></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- modal area -->
+  <div id="modal" class="modal" onclick="closeModal(event)">
+    <div class="dialog" role="dialog" onclick="event.stopPropagation();">
+      <div id="modalContent">Modal</div>
+      <div style="margin-top:12px; text-align:right"><button onclick="closeModal()" style="padding:8px 10px; border-radius:8px; background:#17202a; border:none; color:#9fb3c2; cursor:pointer">Close</button></div>
+    </div>
+  </div>
+
+  <script>
+    // --- Mock data ---
+    const mockTourists = [
+      {id:'T-1001', name:'Alice Kumar', lat:26.5, lng:94.2, score:78, visitDays:3},
+      {id:'T-1002', name:'Bob Singh', lat:26.52, lng:94.22, score:46, visitDays:5, alert:'Entered restricted zone'},
+      {id:'T-1003', name:'Chen Li', lat:26.49, lng:94.18, score:91, visitDays:2},
+      {id:'T-1004', name:'Diana Roy', lat:26.465, lng:94.24, score:62, visitDays:4, alert:'Panic button pressed'}
+    ];
+
+    const mockAlerts = [
+      {time:'10:12', id:'T-1002', name:'Bob Singh', type:'GeoFence', risk:'High'},
+      {time:'09:48', id:'T-1004', name:'Diana Roy', type:'Panic', risk:'High'},
+      {time:'08:30', id:'T-1003', name:'Chen Li', type:'Deviation', risk:'Medium'}
+    ];
+
+    // --- init KPIs ---
+    function refreshKPIs(){
+      document.getElementById('kpiActive').textContent = mockTourists.length;
+      document.getElementById('kpiAlerts').textContent = mockAlerts.length;
+      document.getElementById('kpiZones').textContent = 5; // mock
+      const totalDays = mockTourists.reduce((s,t)=>s+t.visitDays,0);
+      document.getElementById('insTotalDays').textContent = totalDays;
+      const avg = Math.round(mockTourists.reduce((s,t)=>s+t.score,0)/mockTourists.length);
+      document.getElementById('insAvgScore').textContent = avg;
+    }
+
+    // --- charts ---
+    function makeCharts(){
+      const ctx = document.getElementById('clustersChart').getContext('2d');
+      new Chart(ctx, { type:'line', data:{ labels:["-5h","-4h","-3h","-2h","-1h","now"], datasets:[{label:'Tourist density', data:[12,18,15,20,22,19], tension:0.4, borderColor:'#06b6d4', backgroundColor:'rgba(6,182,212,0.08)'}]}, options:{ responsive:true, plugins:{legend:{display:false}}}});
+
+      const ctx2 = document.getElementById('riskChart').getContext('2d');
+
+      new Chart(ctx2, { type:'doughnut', data:{ labels:['High','Medium','Low'], datasets:[{data:[2,5,10], backgroundColor:['#ff6b6b','#ffd166','#06d6a0']}] , options:{responsive:true, plugins:{legend:{position:'bottom'}}}}}
+    )
+    }
+    // --- map ---
+    let map, markers = [];
+    function initMap(){
+      try{
+        map = L.map('map').setView([26.5,94.2], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+
+        mockTourists.forEach(t=>{
+          const m = L.circleMarker([t.lat,t.lng], {radius:8, color: t.score>75? '#06d6a0': t.score>50? '#06b6d4':'#ff6b6b'}).addTo(map);
+          m.bindPopup(`<strong>${t.name}</strong><br/>ID: ${t.id}<br/>Score: ${t.score}`);
+          markers.push(m);
+        })
+      }catch(err){
+        // leaflet not available -> fallback
+        document.getElementById('map').innerHTML = '<div style="padding:40px; text-align:center; color:var(--muted)">Map failed to load (offline). Use online mode to enable map.</div>'
+      }
+    }
+
+    // --- tables ---
+    function populateAlerts(){
+      const tbody = document.querySelector('#alertsTable tbody'); tbody.innerHTML='';
+      mockAlerts.forEach(a=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${a.time}</td><td>${a.name} <div style=\"color:var(--muted); font-size:11px\">${a.id}</div></td><td>${a.type}</td><td><span class='tag ${a.risk.toLowerCase()}'>${a.risk}</span></td><td><button onclick=\"openModal('alert', '${a.id}')\" style=\"padding:6px 8px; border-radius:6px; background:#17202a; border:none; color:#9fb3c2; cursor:pointer\">View</button></td>`;
+        tbody.appendChild(tr);
+      })
+    }
+
+    function populateIDs(){
+      const tbody = document.querySelector('#idsTable tbody'); tbody.innerHTML='';
+      mockTourists.forEach(t=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${t.id}</td><td>${t.name}</td><td>${t.visitDays} days</td><td>${t.score}</td><td><button onclick=\"openModal('id','${t.id}')\" style=\"padding:6px 8px; border-radius:6px; background:#17202a; border:none; color:#9fb3c2; cursor:pointer\">Open</button></td>`;
+        tbody.appendChild(tr);
+      })
+    }
+
+    // --- modal ---
+    function openModal(type, id){
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modalContent');
+      if(type==='id'){
+        const t = mockTourists.find(x=>x.id===id);
+        content.innerHTML = `<h3>${t.name} <small style=\"color:var(--muted)\">${t.id}</small></h3>
+          <div style=\"margin-top:8px\">Score: <strong>${t.score}</strong></div>
+          <div style=\"margin-top:8px\">Visit days: <strong>${t.visitDays}</strong></div>
+          <div style=\"margin-top:8px\">KYC: Passport ✓</div>
+          <div style=\"margin-top:12px; display:flex; gap:8px\"><button onclick=\"generateEFIR('${t.id}')\" style=\"padding:8px 10px; border-radius:8px; background:#ff6b6b; border:none; color:white; cursor:pointer\">Auto-generate E-FIR</button><button onclick=\"closeModal()\" style=\"padding:8px 10px; border-radius:8px; background:#17202a; border:none; color:#9fb3c2; cursor:pointer\">Close</button></div>`;
+      }else if(type==='alert'){
+        const a = mockAlerts.find(x=>x.id===id);
+        content.innerHTML = `<h3>Alert — ${a.type}</h3><div style=\"margin-top:8px\">Tourist: <strong>${a.name}</strong> (${a.id})</div><div style=\"margin-top:8px\">Risk: <strong>${a.risk}</strong></div><div style=\"margin-top:8px\">Time: ${a.time}</div><div style=\"margin-top:12px; display:flex; gap:8px\"><button onclick=\"ackAlert('${a.id}')\" style=\"padding:8px 10px; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:#04202a; cursor:pointer\">Acknowledge</button><button onclick=\"closeModal()\" style=\"padding:8px 10px; border-radius:8px; background:#17202a; border:none; color:#9fb3c2; cursor:pointer\">Close</button></div>`;
+      }else if(type==='create-id'){
+        content.innerHTML = `<h3>Issue Digital ID</h3><div style=\"margin-top:8px\"><label>Name</label><input id=\"newName\" style=\"width:100%; padding:8px; margin-top:6px; border-radius:6px; background:transparent; border:1px solid rgba(255,255,255,0.04)\"/></div><div style=\"margin-top:8px; display:flex; gap:8px\"><button onclick=\"issueID()\" style=\"padding:8px 10px; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:#04202a; cursor:pointer\">Issue</button><button onclick=\"closeModal()\" style=\"padding:8px 10px; border-radius:8px; background:#17202a; border:none; color:#9fb3c2; cursor:pointer\">Cancel</button></div>`;
+      }
+
+      modal.classList.add('open');
+    }
+
+    function closeModal(e){
+      if(e && e.target && e.target.id!=='modal') return; // click inside dialog
+      document.getElementById('modal').classList.remove('open');
+    }
+
+    function ackAlert(id){
+      alert('Acknowledged alert for '+id);
+      closeModal();
+    }
+
+    function generateEFIR(id){
+      alert('E-FIR auto-generated for '+id+' (mock).');
+      closeModal();
+    }
+
+    function issueID(){
+      const name = document.getElementById('newName').value.trim();
+      if(!name) return alert('Enter name');
+      const nid = 'T-'+(1000 + mockTourists.length + 1);
+      mockTourists.push({id:nid, name, lat:26.50 + Math.random()*0.05, lng:94.2 + Math.random()*0.05, score: Math.round(40+Math.random()*60), visitDays:3});
+      populateIDs(); refreshKPIs(); closeModal();
+    }
+
+    function exportReport(){
+      alert('Exporting snapshot... (mock)');
+    }
+
+    // search
+    document.getElementById('searchBox').addEventListener('input', function(e){
+      const v = e.target.value.trim().toLowerCase();
+      if(!v){ populateIDs(); populateAlerts(); return }
+      const ids = mockTourists.filter(t => t.id.toLowerCase().includes(v) || t.name.toLowerCase().includes(v));
+      const tbody = document.querySelector('#idsTable tbody'); tbody.innerHTML='';
+      ids.forEach(t=>{ const tr = document.createElement('tr'); tr.innerHTML = `<td>${t.id}</td><td>${t.name}</td><td>${t.visitDays} days</td><td>${t.score}</td><td><button onclick=\"openModal('id','${t.id}')\">Open</button></td>`; tbody.appendChild(tr) })
+    })
+
+    // panic test
+    document.getElementById('panicAll').addEventListener('click', ()=>{
+      alert('Simulating panic broadcast to nearest police units (mock)');
+    })
+
+    // export and init
+    window.addEventListener('load', ()=>{
+      refreshKPIs(); makeCharts(); initMap(); populateAlerts(); populateIDs();
+    })
+  </script>
+</body>
+</html>
