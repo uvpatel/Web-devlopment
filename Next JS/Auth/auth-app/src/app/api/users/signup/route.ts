@@ -4,9 +4,7 @@ import {NextRequest,NextResponse} from 'next/server'
 import bcrypt from 'bcryptjs'
 import { sendEmail } from '@/helpers/mailer'
 
-
 connect()
-
 
 export async function POST(request: NextRequest) {
     try {
