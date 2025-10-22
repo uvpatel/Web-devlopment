@@ -1,0 +1,19 @@
+{
+  "name": "js-backend",
+  "version": "1.0.0",
+  "description": "npm init -y",
+  "main": "app.js",
+  "scripts": {
+   "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1",
+    "cors": "^2.8.5"
+  }
+}
