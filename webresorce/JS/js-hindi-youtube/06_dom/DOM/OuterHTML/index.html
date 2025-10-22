@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>outerHTML</title>
+</head>
+<body>
+    <div id="myDiv">
+    <p>This is my paragraph</p>
+    <p>This is my paragraph</p>
+</div>
+<script>
+    let myDiv = document.getElementById("myDiv");
+myDiv.outerHTML = "<div><p>This is my new text</p></div>";
+</script>
+
+</body>
+</html>

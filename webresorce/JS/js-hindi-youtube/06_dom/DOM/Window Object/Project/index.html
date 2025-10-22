@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Window Object Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    button {
+      margin: 10px 0;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="heading">Hello</h1>
+
+  <button onclick="changeText()">Change Heading Text</button>
+  <button onclick="showAlert()">Show Alert</button>
+  <button onclick="goToGoogle()">Redirect to Google</button>
+  <button onclick="showURL()">Show Current URL</button>
+
+  <script>
+    // Change heading text using window.document
+    function changeText() {
+      window.document.getElementById("heading").innerText = "This is the new heading!";
+    }
+
+    // Show an alert using window.alert()
+    function showAlert() {
+      window.alert("This is an alert box!");
+    }
+
+    // Redirect to another website using window.location
+    function goToGoogle() {
+    //   window.location.href = "https://www.google.com" ;
+    // for new tab
+        window.open("https://www.google.com", "_blank");
+    }
+
+    // Show current URL using window.location.href
+    function showURL() {
+      const currentURL = window.location.href;
+      window.alert("Current URL is: " + currentURL);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Screen Object Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 16px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      white-space: pre-wrap;
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📺 Screen Object Info</h1>
+  <button onclick="showScreenInfo()">Get Screen Info</button>
+
+  <div id="output"></div>
+
+  <script>
+    function showScreenInfo() {
+      const output = document.getElementById("output");
+      output.innerText = `
+🖥️ Screen Resolution: ${screen.width} x ${screen.height} pixels
+🎨 Color Depth: ${screen.colorDepth} bits
+🪟 Available Width: ${screen.availWidth} pixels
+🪟 Available Height: ${screen.availHeight} pixels
+      `.trim();
+    }
+  </script>
+
+</body>
+</html>

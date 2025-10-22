@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator Object</title>
+</head>
+<body>
+    
+
+    <script>
+        if (navigator.userAgent.indexOf("Chrome") !== -1) {
+    console.log("The user is using Google Chrome");
+}
+if (navigator.onLine) {
+    console.log("The device is currently offline");
+}
+
+console.log(`The screen width is ${screen.width} pixels and the screen height is ${screen.height} pixels`);
+    </script>
+</body>
+</html>

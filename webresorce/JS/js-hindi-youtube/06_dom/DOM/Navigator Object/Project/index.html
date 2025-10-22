@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navigator & Screen Object</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    button {
+      margin: 10px 0;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Navigator & Screen Object</h1>
+
+  <button onclick="checkBrowser()">Check Browser</button>
+  <button onclick="checkOnlineStatus()">Check Online Status</button>
+  <button onclick="showScreenSize()">Show Screen Size</button>
+
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById("output");
+
+    function checkBrowser() {
+      if (navigator.userAgent.indexOf("Chrome") !== -1) {
+        output.innerText += "✅ The user is using Google Chrome\n";
+      } else {
+        output.innerText += "❌ The user is NOT using Google Chrome\n";
+      }
+    }
+
+    function checkOnlineStatus() {
+      if (navigator.onLine) {
+        output.innerText += "✅ The device is currently ONLINE\n";
+      } else {
+        output.innerText += "❌ The device is currently OFFLINE\n";
+      }
+    }
+
+    function showScreenSize() {
+      output.innerText += `🖥️ Screen width: ${screen.width}px, height: ${screen.height}px\n`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple SPA Navigation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    nav a {
+      margin-right: 20px;
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Simple SPA Using history.pushState()</h1>
+
+  <nav>
+    <a onclick="navigateTo('home')">Home</a>
+    <a onclick="navigateTo('about')">About</a>
+  </nav>
+
+  <div id="content">
+    <p>Welcome to the Home Page.</p>
+  </div>
+
+  <script>
+    function navigateTo(page) {
+      if (page === 'home') {
+        document.getElementById('content').innerHTML = "<p>Welcome to the Home Page.</p>";
+        history.pushState({ page: "home" }, "Home", "/home");
+      } else if (page === 'about') {
+        document.getElementById('content').innerHTML = "<p>This is the About Page.</p>";
+        history.pushState({ page: "about" }, "About", "/about");
+      }
+    }
+
+    // Handle back/forward navigation
+    window.onpopstate = function (event) {
+      if (event.state && event.state.page) {
+        navigateTo(event.state.page);
+      } else {
+        document.getElementById('content').innerHTML = "<p>Welcome to the Home Page.</p>";
+      }
+    };
+  </script>
+
+</body>
+</html>
