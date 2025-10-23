@@ -14,6 +14,10 @@ This repository serves as my **interactive learning journal** — documenting co
 
 ## 📑 Table of Contents
 
+
+![Profile Views](https://komarev.com/ghpvc/?username=uvpatel&color=blue)
+
+
 - [📖 Introduction & Overview](#-introduction--overview)
 - [🛤️ My Learning Path](#-my-learning-path-️)
 - [📚 Useful Resources & References](#-useful-resources--references)
