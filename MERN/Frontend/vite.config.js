@@ -3,17 +3,17 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 
-// https://vite.dev/config/
 export default defineConfig({
+  plugins: [react(),tailwindcss()],
   server: {
     port: 5173,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
+      "/api": {
+        target: "https://login-backend-2-eq1g.onrender.com",
+        // https://login-backend-2-eq1g.onrender.com
         changeOrigin: true,
-        secure: false,
+        secure: true, // your backend is HTTPS
       },
     },
   },
-  plugins: [react(),tailwindcss()],
-})
+});
